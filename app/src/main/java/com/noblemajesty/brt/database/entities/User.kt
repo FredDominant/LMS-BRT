@@ -14,7 +14,7 @@ data class User (
         var password: String = ""
 )
 {       @Ignore
-constructor(): this(0, "", "", "", "")
+constructor(): this(null, "", "", "", "")
 
     @Ignore
     constructor(firstName: String, lastName: String, email: String, password: String): this(0, firstName, lastName, email, password)

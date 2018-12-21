@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "bus")
 data class Bus (
         @PrimaryKey(autoGenerate = true)
-        var busId: Int,
+        var busId: Int?,
         var capacity: Int,
         var name: String,
         var color: String
@@ -16,5 +16,5 @@ data class Bus (
     constructor(): this(0, 0, "", "")
 
     @Ignore
-    constructor(capacity: Int, name: String, color: String): this(0, capacity, name, color)
+    constructor(capacity: Int, name: String, color: String): this(null, capacity, name, color)
 }

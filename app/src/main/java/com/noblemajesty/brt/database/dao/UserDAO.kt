@@ -10,10 +10,10 @@ import com.noblemajesty.brt.database.entities.User
 interface UserDAO {
 
     @Query("SELECT * FROM user WHERE email = :userEmail")
-    fun findUserByEmail(userEmail: String): User
+    fun findUserByEmail(userEmail: String): User?
 
     @Insert
-    fun createUser(user: User)
+    fun createUser(user: User): Long?
 
     @Update
     fun updateUser(user: User)

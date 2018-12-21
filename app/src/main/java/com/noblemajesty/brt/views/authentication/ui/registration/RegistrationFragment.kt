@@ -27,15 +27,36 @@ class RegistrationFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AuthenticationViewModel::class.java)
+        viewModel = ViewModelProviders.of(activity!!).get(AuthenticationViewModel::class.java)
         registerButton.setOnClickListener { _ -> goToMainScreen() }
+        loginText.setOnClickListener { _ -> goToLogin() }
+    }
+
+    private fun goToLogin() {
+        activity!!.supportFragmentManager.beginTransaction()
+                .replace(R.id.container, LoginFragment.newInstance())
+                .commit()
     }
 
     private fun goToMainScreen() {
         if (validateFields()) {
-            Intent(activity, MainActivity::class.java).apply {
-                startActivity(this)
+            if (viewModel.signup(firstName.editText?.text!!.toString(),
+                            lastName.editText?.text!!.toString(),
+                            email.editText?.text!!.toString(),
+                            password.editText?.text!!.toString())) {
+                (activity!! as? RegistrationActivity)
+                        ?.saveDetailsToSharedPreference(
+                                email = viewModel.email,
+                                lastName = viewModel.lastName,
+                                firstName = viewModel.firstName
+                        )
+                Intent(activity, MainActivity::class.java).apply { startActivity(this) }
+            } else {
+                Snackbar.make(registrationParent, viewModel.errorMessage.toUpperCase(),
+                        Snackbar.LENGTH_LONG)
+                        .show()
             }
+
         } else {
             Snackbar.make(registrationParent, "All fields are required.".toUpperCase(),
                     Snackbar.LENGTH_LONG)
