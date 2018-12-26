@@ -12,6 +12,9 @@ interface BusDAO {
     @Query("SELECT * FROM bus WHERE busId = :busId")
     fun findBusById(busId: Int): Bus
 
+    @Query("SELECT * FROM bus")
+    fun getAllBuses(): List<Bus>?
+
     @Insert
     fun createBus(bus: Bus)
 

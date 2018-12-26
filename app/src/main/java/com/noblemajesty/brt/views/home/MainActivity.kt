@@ -70,9 +70,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun goToFragment(fragment: Fragment, bundle: Bundle?){
+    fun goToFragment(fragment: Fragment, bundle: Bundle?){
+        bundle?.let { fragment.arguments = it }
         supportFragmentManager.beginTransaction()
                 .replace(R.id.frameContainer, fragment)
+                .addToBackStack(null)
                 .commit()
     }
     private fun setDrawerInfo() {

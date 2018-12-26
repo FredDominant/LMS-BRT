@@ -20,9 +20,25 @@ abstract class BRTDatabase: RoomDatabase() {
 
     abstract fun busScheduleDAO(): BusScheduleDAO
 
+    fun populateBuses() {
+        val buses = listOf(
+                Bus(capacity = 18, name = "Hiace", color = "brown"),
+                Bus(capacity = 12, name = "Karosa", color = "white"),
+                Bus(capacity = 16, name = "Fiat", color = "black"),
+                Bus(capacity = 14, name = "Volkswagen", color = "yellow"),
+                Bus(capacity = 10, name = "Wrightbus", color = "white"),
+                Bus(capacity = 8, name = "Volvo", color = "red"),
+                Bus(capacity = 8, name = "Kia", color = "white"),
+                Bus(capacity = 10, name = "Hyundai", color = "blue"),
+                Bus(capacity = 14, name = "Irizar", color = "white"),
+                Bus(capacity = 14, name = "Nissan", color = "grey")
+        )
+        buses.map { databaseInstance?.busDAO()?.createBus(it) }
+    }
+
     companion object {
 
-        const val DATABASE_NAME = "brtDatabase.db"
+        private const val DATABASE_NAME = "brtDatabase.db"
         private var databaseInstance: BRTDatabase? = null
 
         fun getDatabaseInstance(context: Context): BRTDatabase {
@@ -32,22 +48,6 @@ abstract class BRTDatabase: RoomDatabase() {
 
         fun destroyInstance() {
             databaseInstance = null
-        }
-
-        fun populateBuses() {
-            val buses = listOf(
-                    Bus(capacity = 18, name = "Hiace", color = "brown"),
-                    Bus(capacity = 12, name = "Karosa", color = "white"),
-                    Bus(capacity = 16, name = "Fiat", color = "black"),
-                    Bus(capacity = 14, name = "Volkswagen", color = "yellow"),
-                    Bus(capacity = 10, name = "Wrightbus", color = "white"),
-                    Bus(capacity = 8, name = "Volvo", color = "red"),
-                    Bus(capacity = 8, name = "Kia", color = "white"),
-                    Bus(capacity = 10, name = "Hyundai", color = "blue"),
-                    Bus(capacity = 14, name = "Irizar", color = "white"),
-                    Bus(capacity = 14, name = "Nissan", color = "grey")
-            )
-            buses.map { databaseInstance?.busDAO()?.createBus(it) }
         }
     }
 }
