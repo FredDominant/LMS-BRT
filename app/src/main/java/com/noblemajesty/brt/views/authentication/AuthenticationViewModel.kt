@@ -12,6 +12,7 @@ class AuthenticationViewModel(application: Application) : AndroidViewModel(appli
     var firstName = ""
     var lastName = ""
     var email = ""
+    var userId = 0
 
     fun loginUser(email: String, password: String): Boolean {
         var isRegisteredUser = false

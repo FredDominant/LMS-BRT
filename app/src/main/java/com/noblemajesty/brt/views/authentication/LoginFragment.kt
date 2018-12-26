@@ -55,7 +55,8 @@ class LoginFragment : Fragment() {
                         ?.saveDetailsToSharedPreference(
                                 email = viewModel.email,
                                 lastName = viewModel.lastName,
-                                firstName = viewModel.firstName
+                                firstName = viewModel.firstName,
+                                userId = viewModel.userId
                         )
                 Intent(activity!!, MainActivity::class.java).apply { startActivity(this) }
             } else {

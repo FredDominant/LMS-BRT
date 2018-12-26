@@ -16,5 +16,8 @@ interface UserDAO {
     fun createUser(user: User): Long?
 
     @Update
-    fun updateUser(user: User)
+    fun updateUser(vararg users: User): Int
+
+    @Query("SELECT * FROM user WHERE userId = :id")
+    fun getCurrentUser(id: Int): User?
 }

@@ -5,4 +5,5 @@ object Utils {
     const val email = "email"
     const val firstName = "firstName"
     const val lastName = "lastName"
+    const val userID: String = "userId"
 }

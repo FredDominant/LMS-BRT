@@ -26,12 +26,13 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    fun saveDetailsToSharedPreference(firstName: String, lastName: String, email:String) {
+    fun saveDetailsToSharedPreference(firstName: String, lastName: String, email:String, userId: Int) {
         getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE)
                 .edit()
                 .putString(Utils.email, email)
                 .putString(Utils.firstName, firstName)
                 .putString(Utils.lastName, lastName)
+                .putInt(Utils.userID, userId)
                 .apply()
     }
 
