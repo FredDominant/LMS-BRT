@@ -1,4 +1,4 @@
-package com.noblemajesty.brt.views.authentication.ui.registration
+package com.noblemajesty.brt.views.authentication
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel

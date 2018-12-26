@@ -6,7 +6,7 @@
   android:id="@+id/registrationParent"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".views.authentication.ui.registration.RegistrationActivity">
+  tools:context=".views.authentication.RegistrationActivity">
 
   <TextView
     android:id="@+id/message"

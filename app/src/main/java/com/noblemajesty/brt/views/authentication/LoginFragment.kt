@@ -1,4 +1,4 @@
-package com.noblemajesty.brt.views.authentication.ui.registration
+package com.noblemajesty.brt.views.authentication
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.noblemajesty.brt.R
-import com.noblemajesty.brt.views.MainActivity
+import com.noblemajesty.brt.views.home.MainActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
