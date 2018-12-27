@@ -1,6 +1,7 @@
 package com.noblemajesty.brt.views.home
 
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import com.noblemajesty.brt.database.BRTDatabase
 import com.noblemajesty.brt.database.entities.Bus
 import com.noblemajesty.brt.database.entities.BusSchedule
@@ -25,8 +26,24 @@ class MainActivityViewModel : ViewModel() {
 
     fun getAllBuses(): List<Bus>? {
         var buses = database?.busDAO()?.getAllBuses()
-        if (buses?.isEmpty()!!) database?.populateBuses()
+        if (buses?.isEmpty()!!) populateBuses()
         buses = database?.busDAO()?.getAllBuses()
         return buses
+    }
+
+    private fun populateBuses() {
+        val buses = listOf(
+                Bus(capacity = 18, name = "Hiace", color = "brown"),
+                Bus(capacity = 12, name = "Karosa", color = "white"),
+                Bus(capacity = 16, name = "Fiat", color = "black"),
+                Bus(capacity = 14, name = "Volkswagen", color = "yellow"),
+                Bus(capacity = 10, name = "Wrightbus", color = "white"),
+                Bus(capacity = 8, name = "Volvo", color = "red"),
+                Bus(capacity = 8, name = "Kia", color = "white"),
+                Bus(capacity = 10, name = "Hyundai", color = "blue"),
+                Bus(capacity = 14, name = "Irizar", color = "white"),
+                Bus(capacity = 14, name = "Nissan", color = "grey")
+        )
+        buses.map { database?.busDAO()?.createBus(it) }
     }
 }
