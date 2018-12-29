@@ -19,6 +19,7 @@ class MainActivityViewModel : ViewModel() {
     var minute: Int? = null
     var departure: String? = null
     var destination: String? = null
+    var busName: String? = null
 
     fun getSchedules() = database?.busScheduleDAO()?.getAllUserSchedule()
 

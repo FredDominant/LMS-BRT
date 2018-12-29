@@ -41,6 +41,7 @@ class BusSeatFragment : Fragment() {
             selectSeatBusCapacity.text = capacity
             selectSeatBusColor.text = color
             selectSeatBusName.text = name
+            viewModel.busName = name
         }
 
         setupRecyclerView()

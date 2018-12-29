@@ -1,14 +1,388 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   tools:context=".views.home.TripPaymentFragment">
 
-  <!-- TODO: Update blank fragment layout -->
-  <TextView
+  <android.support.v7.widget.CardView
+    android:id="@+id/cardView2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="@string/hello_blank_fragment"/>
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    app:cardCornerRadius="4dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0">
 
-</FrameLayout>
+    <android.support.constraint.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <TextView
+        android:id="@+id/textView4"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Trip Details"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
+
+      <LinearLayout
+        android:id="@+id/passengerLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Passenger: "
+          android:textColor="@color/colorPrimary"
+          android:textSize="16sp"/>
+
+        <TextView
+          android:id="@+id/passenger"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:textColor="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView4"
+          tools:text="Fred Adewole"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/fromLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passengerLinear"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passengerLinear"
+        app:layout_constraintTop_toBottomOf="@+id/passengerLinear"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="From: "
+          android:textColor="@color/colorPrimary"
+          android:textSize="16sp"/>
+
+        <TextView
+          android:id="@+id/from"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:textColor="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView4"
+          tools:text="Maryland"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/destinationLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passengerLinear"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/fromLinear"
+        app:layout_constraintTop_toBottomOf="@+id/fromLinear"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="To: "
+          android:textColor="@color/colorPrimary"
+          android:textSize="16sp"/>
+
+        <TextView
+          android:id="@+id/destination"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:textColor="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView4"
+          tools:text="Ojuelegba"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/busLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passengerLinear"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/destinationLinear"
+        app:layout_constraintTop_toBottomOf="@+id/destinationLinear"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Bus: "
+          android:textColor="@color/colorPrimary"
+          android:textSize="16sp"/>
+
+        <TextView
+          android:id="@+id/bus"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:textColor="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView4"
+          tools:text="Some Random Bus"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/seatLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passengerLinear"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/busLinear"
+        app:layout_constraintTop_toBottomOf="@+id/busLinear"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Seat Number"
+          android:textColor="@color/colorPrimary"
+          android:textSize="16sp"/>
+
+        <TextView
+          android:id="@+id/seat"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:textColor="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView4"
+          tools:text="6"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/departureDateLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passengerLinear"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/seatLinear"
+        app:layout_constraintTop_toBottomOf="@+id/seatLinear"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Departure Date: "
+          android:textColor="@color/colorPrimary"
+          android:textSize="16sp"/>
+
+        <TextView
+          android:id="@+id/departureDate"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:textColor="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView4"
+          tools:text="11/12/2013"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/departureTimeLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passengerLinear"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/departureDateLinear"
+        app:layout_constraintTop_toBottomOf="@+id/departureDateLinear"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Departure Time: "
+          android:textColor="@color/colorPrimary"
+          android:textSize="16sp"/>
+
+        <TextView
+          android:id="@+id/departureTime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:textColor="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView4"
+          tools:text="12:04"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/costLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passengerLinear"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passengerLinear"
+        app:layout_constraintTop_toBottomOf="@+id/departureTimeLinear"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Trip Fare: "
+          android:textColor="@color/colorPrimary"
+          android:textSize="16sp"/>
+
+        <TextView
+          android:id="@+id/cost"
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:textColor="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView4"
+          tools:text="3,999.99"/>
+      </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+  </android.support.v7.widget.CardView>
+
+  <Button
+    android:id="@+id/confirmPaymentButton"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="8dp"
+    android:backgroundTint="@color/colorPrimary"
+    android:textAllCaps="false"
+    android:textColor="#FFF"
+    android:text="Confirm Payment"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="@+id/cardView2"
+    app:layout_constraintStart_toStartOf="@+id/cardView2"
+    app:layout_constraintTop_toBottomOf="@+id/cardView2"/>
+
+</android.support.constraint.ConstraintLayout>

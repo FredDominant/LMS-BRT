@@ -9,7 +9,6 @@ data class BusSchedule (
         @PrimaryKey(autoGenerate = true)
         var scheduleId: Int?,
         var userId: Int,
-        var busId: Int,
         var busName: String,
         var destination: String,
         var departure: Long,
@@ -17,8 +16,8 @@ data class BusSchedule (
 )
 {
     @Ignore
-    constructor(): this(0, 0, 0, "", "", 0, "")
+    constructor(): this(0, 0, "", "", 0, "")
 
     @Ignore
-    constructor(userId: Int, busId: Int, busName: String, destination: String, departure: Long, status: String): this(null, userId, busId, busName, destination, departure, status)
+    constructor(userId: Int, busName: String, destination: String, departure: Long, status: String): this(null, userId, busName, destination, departure, status)
 }
