@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.noblemajesty.brt.R
 import com.noblemajesty.brt.database.entities.Bus
+import com.noblemajesty.brt.views.home.MainActivity
 
 class BusAdapter(private val listOfBuses: List<Bus>): RecyclerView.Adapter<BusViewHolder>() {
 

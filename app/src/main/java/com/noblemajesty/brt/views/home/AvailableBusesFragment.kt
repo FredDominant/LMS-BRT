@@ -30,7 +30,6 @@ class AvailableBusesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
         val buses = viewModel.getAllBuses()
         Log.e("Busesssss", "$buses")

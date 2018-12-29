@@ -86,6 +86,8 @@ class AddScheduleFragment : DialogFragment() {
 
     private fun onContinueButtonClick() {
         if (validateFields()) {
+            viewModel.departure = tripFrom.editText?.text?.toString()
+            viewModel.destination = tripTo.editText?.text?.toString()
             val activity = activity!! as? MainActivity
             activity?.goToFragment(AvailableBusesFragment.newInstance(), null)
         } else {
