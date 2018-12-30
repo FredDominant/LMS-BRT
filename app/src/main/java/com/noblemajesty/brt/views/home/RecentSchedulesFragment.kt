@@ -30,7 +30,7 @@ class RecentSchedulesFragment : Fragment() {
         val schedules = viewModel.getSchedules()
         schedules?.let {
             if (it.isEmpty()) { recentScheduleListView.visibility = View.GONE }
-            else { Log.e("Recent Schedules", "${it.size}") }
+            else { Log.e("Recent Schedules", "$it") }
         }
     }
 

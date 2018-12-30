@@ -1,6 +1,9 @@
 package com.noblemajesty.brt.views.home
 
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import com.noblemajesty.brt.BusSeat
 import com.noblemajesty.brt.database.BRTDatabase
 import com.noblemajesty.brt.database.entities.Bus
@@ -9,7 +12,7 @@ import com.noblemajesty.brt.database.entities.User
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     var database: BRTDatabase? = null
     var userId: Int? = null
     var year: Int? = null
@@ -19,10 +22,22 @@ class MainActivityViewModel : ViewModel() {
     var minute: Int? = null
     var departure: String? = null
     var destination: String? = null
+    var busName: String? = null
+    var scheduleId: Long? = null
 
-    fun getSchedules() = database?.busScheduleDAO()?.getAllUserSchedule()
+    init {
+        database = BRTDatabase.getDatabaseInstance(getApplication())
+    }
 
-    fun addSchedule(busSchedule: BusSchedule) = database?.busScheduleDAO()?.addSchedule(busSchedule)
+    fun getSchedules(): List<BusSchedule>? {
+        val schedulesList = ArrayList<BusSchedule>()
+        Log.e("DB Instance newwwww", "$database")
+//        for (scheduleId in 1..10) {
+//            val schedule = database?.busScheduleDAO()?.findScheduleById(scheduleId.toLong())
+//            schedule?.let { schedulesList.add(it)}
+//        }
+        return database?.busScheduleDAO()?.getSchedules()
+    }
 
     fun getUser() = database?.userDAO()?.getCurrentUser(userId!!)
 
@@ -64,4 +79,19 @@ class MainActivityViewModel : ViewModel() {
     }
 
     private fun generateRandomNumber() = Random().nextInt()
+
+    fun addBusSchedule(busSchedule: BusSchedule): Long? {
+        scheduleId = database?.busScheduleDAO()?.addSchedule(busSchedule)
+        Log.e("Saved schedule ID", "$scheduleId")
+        Log.e("getting all", "${getBusSchedule(1)}")
+        return scheduleId
+    }
+
+    fun getBusSchedule(id: Long): BusSchedule? {
+        return database?.busScheduleDAO()?.findScheduleById(id)
+    }
+
+    fun updateSchedule(busSchedule: BusSchedule) {
+        database?.busScheduleDAO()?.updateSchedule(busSchedule)
+    }
 }
