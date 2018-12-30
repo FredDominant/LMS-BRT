@@ -11,13 +11,14 @@ data class BusSchedule (
         var userId: Int,
         var busName: String,
         var destination: String,
-        var departure: Long,
-        var status: String
+        var from: String,
+        var status: String,
+        var date: String
 )
 {
     @Ignore
-    constructor(): this(0, 0, "", "", 0, "")
+    constructor(): this(0, 0, "", "", "", "", "")
 
     @Ignore
-    constructor(userId: Int, busName: String, destination: String, departure: Long, status: String): this(null, userId, busName, destination, departure, status)
+    constructor(userId: Int, busName: String, destination: String, from: String , status: String, date: String): this(null, userId, busName, destination, from, status, date)
 }
