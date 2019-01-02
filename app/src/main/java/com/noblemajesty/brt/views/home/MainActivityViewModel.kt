@@ -18,8 +18,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     var year: Int? = null
     var month: Int? = null
     var day: Int? = null
-    var hour: Int? = null
-    var minute: Int? = null
+    var hour: String? = null
+    var minute: String? = null
     var departure: String? = null
     var destination: String? = null
     var busName: String? = null
@@ -29,15 +29,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         database = BRTDatabase.getDatabaseInstance(getApplication())
     }
 
-    fun getSchedules(): List<BusSchedule>? {
-        val schedulesList = ArrayList<BusSchedule>()
-        Log.e("DB Instance newwwww", "$database")
-//        for (scheduleId in 1..10) {
-//            val schedule = database?.busScheduleDAO()?.findScheduleById(scheduleId.toLong())
-//            schedule?.let { schedulesList.add(it)}
-//        }
-        return database?.busScheduleDAO()?.getSchedules()
-    }
+    fun getSchedules() = database?.busScheduleDAO()?.getSchedules()
 
     fun getUser() = database?.userDAO()?.getCurrentUser(userId!!)
 
@@ -82,8 +74,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     fun addBusSchedule(busSchedule: BusSchedule): Long? {
         scheduleId = database?.busScheduleDAO()?.addSchedule(busSchedule)
-        Log.e("Saved schedule ID", "$scheduleId")
-        Log.e("getting all", "${getBusSchedule(1)}")
         return scheduleId
     }
 

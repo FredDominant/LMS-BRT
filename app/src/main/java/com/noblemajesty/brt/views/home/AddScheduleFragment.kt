@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.DialogFragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +43,6 @@ class AddScheduleFragment : DialogFragment() {
         departureTimeField.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) openTimeDialog(departureTime) }
         continueBookingButton.setOnClickListener { _ -> onContinueButtonClick() }
-        activity?.actionBar?.title = "BOOK A RIDE"
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -69,9 +69,11 @@ class AddScheduleFragment : DialogFragment() {
 
     private fun openTimeDialog(text: TextInputLayout) {
         val timeListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            text.editText?.setText("$hourOfDay:$minute")
-            viewModel.hour = hourOfDay
-            viewModel.minute = minute
+            val formattedMinute: String = if (minute.toString().length < 2) "0$minute" else minute.toString()
+            val formattedHour: String = if (hourOfDay.toString().length < 2) "0$hourOfDay" else hourOfDay.toString()
+            text.editText?.setText("$hourOfDay:$formattedMinute")
+            viewModel.hour = formattedHour
+            viewModel.minute = formattedMinute
         }
         val timeDialog = TimePickerDialog(activity!!, android.R.style.Theme_DeviceDefault_Dialog,
                 timeListener, 1, 1, true)
