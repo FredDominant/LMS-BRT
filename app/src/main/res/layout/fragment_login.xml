@@ -13,13 +13,16 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
     android:layout_marginBottom="8dp"
+    android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:text="Login to Continue"
+    android:textAllCaps="true"
+    android:textColor="@color/colorPrimary"
     android:textSize="24sp"
+    android:textStyle="bold"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="@+id/loginEmail"
+    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.107"/>
 
@@ -66,13 +69,13 @@
     android:layout_marginBottom="8dp"
     android:text="Don't have an account? Register!"
     android:textColor="@color/colorPrimary"
-    android:textSize="12sp"
+    android:textSize="14sp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="@+id/loginPassword"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="@+id/loginPassword"
     app:layout_constraintTop_toBottomOf="@+id/loginPassword"
-    app:layout_constraintVertical_bias="0.0"/>
+    app:layout_constraintVertical_bias="0.086"/>
 
   <Button
     android:id="@+id/loginButton"
@@ -82,8 +85,8 @@
     android:layout_marginBottom="8dp"
     android:backgroundTint="@color/colorPrimary"
     android:text="Log In"
-    android:textAllCaps="false"
     android:textColor="#FFF"
+    android:textStyle="bold"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="@+id/loginPassword"
     app:layout_constraintStart_toStartOf="@+id/loginPassword"

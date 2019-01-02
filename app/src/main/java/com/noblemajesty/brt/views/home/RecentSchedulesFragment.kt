@@ -3,12 +3,15 @@ package com.noblemajesty.brt.views.home
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 
 import com.noblemajesty.brt.R
+import com.noblemajesty.brt.adapters.BusScheduleAdapter
+import com.noblemajesty.brt.database.entities.BusSchedule
 import kotlinx.android.synthetic.main.recent_schedules_fragment.*
 
 class RecentSchedulesFragment : Fragment() {
@@ -28,9 +31,17 @@ class RecentSchedulesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val schedules = viewModel.getSchedules()
+        activity?.actionBar?.title = "SCHEDULES"
         schedules?.let {
-            if (it.isEmpty()) { recentScheduleListView.visibility = View.GONE }
-            else { Log.e("Recent Schedules", "$it") }
+            val adapter = BusScheduleAdapter(it as ArrayList<BusSchedule>)
+            val layoutManager = LinearLayoutManager(activity!!, LinearLayout.VERTICAL, false)
+            recentScheduleListView.apply {
+                this.adapter = adapter
+                this.layoutManager = layoutManager
+                setHasFixedSize(true)
+                noRecentScheduleText.text = if (it.isEmpty()) "You've not taken any trip" else "Your recent trips"
+                visibility = View.VISIBLE
+            }
         }
     }
 

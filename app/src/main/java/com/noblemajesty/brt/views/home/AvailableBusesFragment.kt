@@ -32,6 +32,7 @@ class AvailableBusesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
         val buses = viewModel.getAllBuses()
+        activity?.actionBar?.title = "BUSES"
         Log.e("Busesssss", "$buses")
         buses?.let {
             noBusAvailableText.visibility = View.GONE

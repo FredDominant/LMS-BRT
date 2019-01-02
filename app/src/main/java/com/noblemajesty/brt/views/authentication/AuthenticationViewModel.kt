@@ -39,8 +39,9 @@ class AuthenticationViewModel(application: Application) : AndroidViewModel(appli
             return false
         }
 
+        val user = User(firstName = firstName, lastName = lastName, email = email, password = password)
         val userId = BRTDatabase.getDatabaseInstance(getApplication())
-                .userDAO().createUser(User(firstName, lastName, email, password))
+                .userDAO().createUser(user)
 
         userId?.let {
             isRegisteredUser = true

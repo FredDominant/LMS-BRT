@@ -11,17 +11,19 @@
   <TextView
     android:id="@+id/message"
     android:textStyle="bold"
-    android:textColor="@color/colorPrimary"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
     android:layout_marginBottom="8dp"
+    android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:text="Register to continue"
+    android:textColor="@color/colorPrimary"
     android:textSize="24sp"
+    android:textAllCaps="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="@+id/firstName"
+    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.00999999"/>
 
@@ -93,13 +95,13 @@
   </android.support.design.widget.TextInputLayout>
 
   <TextView
-    android:textColor="@color/colorPrimary"
     android:id="@+id/loginText"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="32dp"
     android:text="Have an account? Login"
-    android:textSize="12sp"
+    android:textColor="@color/colorPrimary"
+    android:textSize="14sp"
     app:layout_constraintEnd_toEndOf="@+id/firstName"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="@+id/firstName"
@@ -112,8 +114,8 @@
     android:layout_marginBottom="8dp"
     android:backgroundTint="@color/colorPrimary"
     android:text="Register"
-    android:textAllCaps="false"
     android:textColor="#FFF"
+    android:textStyle="bold"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="@+id/firstName"
     app:layout_constraintStart_toStartOf="@+id/firstName"

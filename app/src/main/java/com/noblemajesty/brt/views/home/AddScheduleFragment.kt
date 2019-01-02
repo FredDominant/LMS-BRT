@@ -42,6 +42,7 @@ class AddScheduleFragment : DialogFragment() {
         departureTimeField.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) openTimeDialog(departureTime) }
         continueBookingButton.setOnClickListener { _ -> onContinueButtonClick() }
+        activity?.actionBar?.title = "BOOK A RIDE"
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -53,10 +54,12 @@ class AddScheduleFragment : DialogFragment() {
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             val format = SimpleDateFormat("dd/MM/yyyy")
             val date = calendar.time
-            text.editText?.setText(format.format(date))
-            viewModel.year = year
-            viewModel.month = month
-            viewModel.day = dayOfMonth
+            val formattedDate = format.format(date)
+            text.editText?.setText(formattedDate)
+            val split = formattedDate.split('/')
+            viewModel.year = split[2].toInt()
+            viewModel.month = split[1].toInt()
+            viewModel.day = split[0].toInt()
         }
         val dateDialog = DatePickerDialog(activity!!, android.R.style.Theme_DeviceDefault_Dialog,
                 dateListener, 1990, 1, 1)
@@ -66,7 +69,7 @@ class AddScheduleFragment : DialogFragment() {
 
     private fun openTimeDialog(text: TextInputLayout) {
         val timeListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            text.editText?.setText("$hourOfDay: $minute")
+            text.editText?.setText("$hourOfDay:$minute")
             viewModel.hour = hourOfDay
             viewModel.minute = minute
         }
