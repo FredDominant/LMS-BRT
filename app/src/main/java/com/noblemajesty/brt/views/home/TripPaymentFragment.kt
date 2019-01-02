@@ -21,6 +21,7 @@ class TripPaymentFragment : Fragment() {
 
     companion object { fun newInstance() = TripPaymentFragment() }
 
+    private var seatNumber: Int? = null
     private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +35,8 @@ class TripPaymentFragment : Fragment() {
 
         val bundle = arguments
         bundle?.let {
-            val seatNumber = it.getInt("seatNumber")
-            seat.text = seatNumber.toString()
+            seatNumber = it.getInt("seatNumber")
+            seatNumber?.let { seatNumber -> seat.text = seatNumber.toString() }
         }
         activity?.actionBar?.title = "CONFIRM TRIP"
 
@@ -143,7 +144,8 @@ class TripPaymentFragment : Fragment() {
             userId = viewModel.userId!!,
             destination = viewModel.destination!!,
             date = "${viewModel.day}/${viewModel.month}/${viewModel.year}",
-            cost = cost.text.toString()
+            cost = cost.text.toString(),
+            seatNumber = (if (seatNumber != null) seatNumber else 0)!!
         )
 
         return viewModel.addBusSchedule(busSchedule)
