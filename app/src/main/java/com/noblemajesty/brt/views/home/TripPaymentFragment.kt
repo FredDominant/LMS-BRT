@@ -3,11 +3,14 @@ package com.noblemajesty.brt.views.home
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
 
 import com.noblemajesty.brt.R
 import com.noblemajesty.brt.database.entities.BusSchedule
@@ -59,22 +62,7 @@ class TripPaymentFragment : Fragment() {
             setMessage("Confirm Payment of ${cost.text}?")
             setCancelable(true)
             setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
-            setPositiveButton("Confirm") { _, _ -> showSuccessModal() }
-        }
-        val dialog = dialogBuilder.create()
-        dialog.show()
-    }
-
-    private fun showSuccessModal() {
-        val dialogBuilder = AlertDialog.Builder(activity!!)
-        dialogBuilder.apply {
-            setTitle("Confirm Payment")
-            setMessage("Payment confirmed for trip to ${destination.text} from ${from.text} on ${departureDate.text} at ${departureTime.text}")
-            setCancelable(true)
-            setPositiveButton("close") { _, _ ->
-                saveScheduleDetails()
-                showPaymentSuccessOptions()
-            }
+            setPositiveButton("Confirm") { _, _ -> showPaymentDialog() }
         }
         val dialog = dialogBuilder.create()
         dialog.show()
@@ -104,6 +92,44 @@ class TripPaymentFragment : Fragment() {
         val dialog = dialogBuilder.create()
         dialog.show()
     }
+
+    private fun showPaymentDialog() {
+        val inflater = LayoutInflater.from(activity)
+        val dialogView = inflater.inflate(R.layout.partial_dialog, null)
+        val dialogBuilder = AlertDialog.Builder(activity!!)
+        dialogBuilder.apply {
+            setView(dialogView)
+            setCancelable(true)
+            setPositiveButton("Close") { dialog, _ ->
+                dialog.cancel()
+                if (dialogView.findViewById<LinearLayout>(R.id.successContainer).visibility == View.VISIBLE){
+                    saveScheduleDetails()
+                    showPaymentSuccessOptions()
+                } else {
+                    confirmPaymentButton.text = "Retry"
+                }
+            }
+        }
+        val dialog = dialogBuilder.create()
+        dialog.show()
+        dialogView.findViewById<Button>(R.id.simulateSuccess).setOnClickListener { _ -> simulateSuccess(dialogView) }
+        dialogView.findViewById<Button>(R.id.simulateError).setOnClickListener { _ -> simulateError(dialogView) }
+    }
+
+    private fun simulateSuccess(view: View) {
+        view.findViewById<ConstraintLayout>(R.id.paymentMain).visibility = View.GONE
+        view.findViewById<ConstraintLayout>(R.id.paymentResult).visibility = View.VISIBLE
+        view.findViewById<LinearLayout>(R.id.errorContainer).visibility = View.GONE
+        view.findViewById<LinearLayout>(R.id.successContainer).visibility = View.VISIBLE
+    }
+
+    private fun simulateError(view: View) {
+        view.findViewById<ConstraintLayout>(R.id.paymentMain).visibility = View.GONE
+        view.findViewById<ConstraintLayout>(R.id.paymentResult).visibility = View.VISIBLE
+        view.findViewById<LinearLayout>(R.id.errorContainer).visibility = View.VISIBLE
+        view.findViewById<LinearLayout>(R.id.successContainer).visibility = View.GONE
+    }
+
     private fun goToHomeFragment() {
         val activity = activity as? MainActivity
         activity?.goToFragment(RecentSchedulesFragment.newInstance(), null)
