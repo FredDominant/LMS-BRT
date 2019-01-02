@@ -15,6 +15,6 @@ class BusScheduleAdapter(private val schedules: ArrayList<BusSchedule>): Recycle
     override fun getItemCount() = schedules.size
 
     override fun onBindViewHolder(holder: BusScheduleViewHolder, position: Int) {
-        holder.setValues()
+        holder.setValues(schedules[position])
     }
 }

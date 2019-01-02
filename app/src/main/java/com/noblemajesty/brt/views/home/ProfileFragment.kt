@@ -30,6 +30,7 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
         updateProfile.setOnClickListener { _ -> updateProfile() }
         val user = viewModel.getUser()
+        activity?.actionBar?.title = "PROFILE"
         user?.let {
             profileEmail.editText?.setText(it.email)
             profileFirstName.editText?.setText(it.firstName)

@@ -30,6 +30,7 @@ class RegistrationFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!).get(AuthenticationViewModel::class.java)
         registerButton.setOnClickListener { _ -> goToMainScreen() }
         loginText.setOnClickListener { _ -> goToLogin() }
+        activity?.actionBar?.title = "REGISTER"
     }
 
     private fun goToLogin() {

@@ -32,6 +32,7 @@ class LoginFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!).get(AuthenticationViewModel::class.java)
         signupText.setOnClickListener { _ -> goToSignup() }
         loginButton.setOnClickListener { _ -> login() }
+        activity?.actionBar?.title = "LOGIN"
     }
 
     private fun goToSignup() {

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.DialogFragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,10 +54,12 @@ class AddScheduleFragment : DialogFragment() {
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             val format = SimpleDateFormat("dd/MM/yyyy")
             val date = calendar.time
-            text.editText?.setText(format.format(date))
-            viewModel.year = year
-            viewModel.month = month
-            viewModel.day = dayOfMonth
+            val formattedDate = format.format(date)
+            text.editText?.setText(formattedDate)
+            val split = formattedDate.split('/')
+            viewModel.year = split[2].toInt()
+            viewModel.month = split[1].toInt()
+            viewModel.day = split[0].toInt()
         }
         val dateDialog = DatePickerDialog(activity!!, android.R.style.Theme_DeviceDefault_Dialog,
                 dateListener, 1990, 1, 1)
@@ -66,9 +69,11 @@ class AddScheduleFragment : DialogFragment() {
 
     private fun openTimeDialog(text: TextInputLayout) {
         val timeListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            text.editText?.setText("$hourOfDay: $minute")
-            viewModel.hour = hourOfDay
-            viewModel.minute = minute
+            val formattedMinute: String = if (minute.toString().length < 2) "0$minute" else minute.toString()
+            val formattedHour: String = if (hourOfDay.toString().length < 2) "0$hourOfDay" else hourOfDay.toString()
+            text.editText?.setText("$hourOfDay:$formattedMinute")
+            viewModel.hour = formattedHour
+            viewModel.minute = formattedMinute
         }
         val timeDialog = TimePickerDialog(activity!!, android.R.style.Theme_DeviceDefault_Dialog,
                 timeListener, 1, 1, true)

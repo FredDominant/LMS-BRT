@@ -16,10 +16,6 @@ import kotlinx.android.synthetic.main.fragment_available_buses.*
 
 class AvailableBusesFragment : Fragment() {
 
-    private var dayOfMonth: Int? = null
-    private var month: Int? = null
-    private var year: Int? = null
-
     private lateinit var viewModel: MainActivityViewModel
 
     companion object { fun newInstance() = AvailableBusesFragment() }
@@ -32,7 +28,7 @@ class AvailableBusesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
         val buses = viewModel.getAllBuses()
-        Log.e("Busesssss", "$buses")
+        activity?.actionBar?.title = "BUSES"
         buses?.let {
             noBusAvailableText.visibility = View.GONE
             availableBusesListView.visibility = View.VISIBLE

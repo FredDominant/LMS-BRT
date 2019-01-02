@@ -37,6 +37,7 @@
         android:text="Trip Details"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -377,7 +378,7 @@
     android:layout_marginBottom="8dp"
     android:layout_marginEnd="8dp"
     android:backgroundTint="@color/colorPrimary"
-    android:textAllCaps="false"
+    android:textStyle="bold"
     android:textColor="#FFF"
     android:text="Confirm Payment"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -408,7 +409,7 @@
       android:layout_marginEnd="8dp"
       android:backgroundTint="#f22727"
       android:text="Cancel Payment"
-      android:textAllCaps="false"
+      android:textStyle="bold"
       android:textColor="#FFF"/>
 
     <Button
@@ -420,7 +421,7 @@
       android:layout_marginEnd="8dp"
       android:backgroundTint="@color/colorPrimary"
       android:text="Continue to Home Screen"
-      android:textAllCaps="false"
+      android:textStyle="bold"
       android:textColor="#FFF"/>
 
   </LinearLayout>
