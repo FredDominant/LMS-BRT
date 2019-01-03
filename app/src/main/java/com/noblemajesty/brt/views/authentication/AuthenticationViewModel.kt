@@ -23,7 +23,8 @@ class AuthenticationViewModel(application: Application) : AndroidViewModel(appli
             this.firstName = it.firstName
             this.lastName = it.lastName
             this.email = it.email
-            Log.e("UserID", "$it")
+            this.userId = it.userId!!
+            Log.e("Logged in User", "$it")
         }
         errorMessage = "Invalid Login details"
         return isRegisteredUser
@@ -45,7 +46,7 @@ class AuthenticationViewModel(application: Application) : AndroidViewModel(appli
 
         userId?.let {
             isRegisteredUser = true
-            Log.e("UserID", "$it")
+            Log.e("Registered UserId", "$it")
         }
         return isRegisteredUser
     }

@@ -32,7 +32,6 @@ class LoginFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!).get(AuthenticationViewModel::class.java)
         signupText.setOnClickListener { _ -> goToSignup() }
         loginButton.setOnClickListener { _ -> login() }
-        activity?.actionBar?.title = "LOGIN"
     }
 
     private fun goToSignup() {
@@ -62,14 +61,12 @@ class LoginFragment : Fragment() {
                 Intent(activity!!, MainActivity::class.java).apply { startActivity(this) }
             } else {
                 Snackbar.make(loginContainer, viewModel.errorMessage.toUpperCase(),
-                        Snackbar.LENGTH_LONG)
-                        .show()
+                        Snackbar.LENGTH_LONG).show()
             }
 
         } else {
             Snackbar.make(loginContainer, "All fields are required.".toUpperCase(),
-                    Snackbar.LENGTH_LONG)
-                    .show()
+                    Snackbar.LENGTH_LONG).show()
         }
     }
 }

@@ -50,19 +50,18 @@ class ProfileFragment : Fragment() {
 
     private fun updateProfile() {
         if (validateField()) {
-            val user = User().apply {
+            viewModel.getUser()?.apply {
                 firstName = profileFirstName.editText?.text?.toString()!!
                 lastName = profileLastName.editText?.text?.toString()!!
                 email = profileEmail.editText?.text?.toString()!!
                 password = profilePassword.editText?.text?.toString()!!
+                val updateStatus = viewModel.updateProfile(this)
+                if (updateStatus) {
+                    updateSharedPreference(this)
+                    displaySnackbar("Profile details updated")
+                } else displaySnackbar(viewModel.errorMessage)
             }
-            viewModel.updateProfile(user)
-            updateSharedPreference(user)
-        }
-        else {
-            Snackbar.make(profileContainer, "All Fields are Required!", Snackbar.LENGTH_LONG)
-                .show()
-        }
+        } else { displaySnackbar("All Fields are Required") }
     }
 
     private fun updateSharedPreference(user: User) {
@@ -71,6 +70,11 @@ class ProfileFragment : Fragment() {
                 .putString(Utils.firstName, user.firstName)
                 .putString(Utils.lastName, user.lastName)
                 .apply()
+    }
+
+    private fun displaySnackbar(message: String) {
+        Snackbar.make(profileContainer, message.toUpperCase(), Snackbar.LENGTH_LONG)
+                .show()
     }
 
 }
