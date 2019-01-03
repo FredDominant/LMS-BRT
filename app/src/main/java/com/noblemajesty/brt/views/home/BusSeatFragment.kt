@@ -32,7 +32,6 @@ class BusSeatFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
         selectSeatBusFrom.text = viewModel.departure
         selectSeatBusDestination.text = viewModel.destination
-        activity?.actionBar?.title = "SELECT SEAT"
 
         arguments?.let {
             name = it.getString("busName")

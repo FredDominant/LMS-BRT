@@ -31,7 +31,6 @@ class RecentSchedulesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val schedules = viewModel.getSchedules()
-        activity?.actionBar?.title = "SCHEDULES"
         schedules?.let {
             val adapter = BusScheduleAdapter(it as ArrayList<BusSchedule>)
             val layoutManager = LinearLayoutManager(activity!!, LinearLayout.VERTICAL, false)
