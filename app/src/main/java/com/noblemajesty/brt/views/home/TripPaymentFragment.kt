@@ -4,16 +4,28 @@ package com.noblemajesty.brt.views.home
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
+import android.support.design.widget.Snackbar
+import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
+import co.paystack.android.Paystack
+import co.paystack.android.PaystackSdk
+import co.paystack.android.Transaction
+import co.paystack.android.model.Card
+import co.paystack.android.model.Charge
 
 import com.noblemajesty.brt.R
+import com.noblemajesty.brt.Utils.month
+import com.noblemajesty.brt.Utils.year
 import com.noblemajesty.brt.database.entities.BusSchedule
+import com.noblemajesty.brt.database.entities.User
 import kotlinx.android.synthetic.main.fragment_trip_payment.*
 import java.util.*
 
@@ -23,6 +35,7 @@ class TripPaymentFragment : Fragment() {
 
     private var seatNumber: Int? = null
     private lateinit var viewModel: MainActivityViewModel
+    private var user: User? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -38,7 +51,6 @@ class TripPaymentFragment : Fragment() {
             seatNumber = it.getInt("seatNumber")
             seatNumber?.let { seatNumber -> seat.text = seatNumber.toString() }
         }
-        activity?.actionBar?.title = "CONFIRM TRIP"
 
         from.text = viewModel.departure
         destination.text = viewModel.destination
@@ -46,7 +58,7 @@ class TripPaymentFragment : Fragment() {
         departureDate.text = "${viewModel.day}/${viewModel.month}/${viewModel.year}"
         departureTime.text = "${viewModel.hour}:${viewModel.minute}"
         cost.text = Random().nextInt(1000).toString()
-        val user = viewModel.getUser()
+        user = viewModel.getUser()
         user?.let {
             passenger.text = "${it.firstName} ${it.lastName}"
         }
@@ -101,20 +113,58 @@ class TripPaymentFragment : Fragment() {
         dialogBuilder.apply {
             setView(dialogView)
             setCancelable(true)
-            setPositiveButton("Close") { dialog, _ ->
-                dialog.cancel()
-                if (dialogView.findViewById<LinearLayout>(R.id.successContainer).visibility == View.VISIBLE){
-                    saveScheduleDetails()
-                    showPaymentSuccessOptions()
-                } else {
-                    confirmPaymentButton.text = "Retry"
-                }
-            }
+            setPositiveButton("Close") { dialog, _ -> dialog.cancel() }
         }
         val dialog = dialogBuilder.create()
         dialog.show()
-        dialogView.findViewById<Button>(R.id.simulateSuccess).setOnClickListener { _ -> simulateSuccess(dialogView) }
-        dialogView.findViewById<Button>(R.id.simulateError).setOnClickListener { _ -> simulateError(dialogView) }
+
+        dialogView.findViewById<Button>(R.id.paymentButton).setOnClickListener { _ ->
+            val cardNumber = dialogView.findViewById<TextInputLayout>(R.id.cardNumber).editText?.text?.toString()
+            val cvv = dialogView.findViewById<TextInputLayout>(R.id.cardCVV).editText?.text?.toString()
+            val year = dialogView.findViewById<TextInputLayout>(R.id.cardYear).editText?.text?.toString()
+            val month = dialogView.findViewById<TextInputLayout>(R.id.cardMonth).editText?.text?.toString()
+
+            validateCard(cardNumber, cvv, month, year)
+            dialog.cancel()
+        }
+    }
+
+    private fun validateCard(cardNumber: String?, cvv: String?, month: String?, year: String?) {
+        if (validateInputs(cardNumber, cvv, year, month)) {
+            val card = Card(cardNumber, month?.toInt(), year?.toInt(), cvv)
+            if (card.isValid) makePayment(card) else {
+                Snackbar.make(makePaymentContainer, "Payment card is Invalid", Snackbar.LENGTH_LONG)
+                        .show()
+            }
+        } else {
+            Snackbar.make(makePaymentContainer, "All fields are required", Snackbar.LENGTH_LONG)
+                    .show()
+        }
+    }
+
+    private fun makePayment(card: Card) = PaystackSdk
+            .chargeCard(activity, getCharge(card), getTransactionCallback())
+
+    private fun getCharge(card: Card) = Charge().apply {
+        user?.let {
+            email = it.email
+            this.card = card
+            amount = cost.text.toString().toInt()
+        }
+    }
+
+    private fun showPaymentResultDialog(success: Boolean) {
+        val inflater = LayoutInflater.from(activity)
+        val dialogView = inflater.inflate(R.layout.partial_dialog, null)
+        val dialogBuilder = AlertDialog.Builder(activity!!)
+        dialogBuilder.apply {
+            setView(dialogView)
+            setCancelable(true)
+            setPositiveButton("Close") { dialog, _ -> dialog.cancel() }
+        }
+        val dialog = dialogBuilder.create()
+        if (success) simulateSuccess(dialogView) else simulateError(dialogView)
+        dialog.show()
     }
 
     private fun simulateSuccess(view: View) {
@@ -147,7 +197,6 @@ class TripPaymentFragment : Fragment() {
             cost = cost.text.toString(),
             seatNumber = (if (seatNumber != null) seatNumber else 0)!!
         )
-
         return viewModel.addBusSchedule(busSchedule)
     }
 
@@ -160,5 +209,30 @@ class TripPaymentFragment : Fragment() {
     private fun showPaymentSuccessOptions() {
         confirmPaymentButton.visibility = View.GONE
         successfulPaymentOptions.visibility = View.VISIBLE
+    }
+
+    private fun getTransactionCallback() : Paystack.TransactionCallback = object : Paystack.TransactionCallback {
+        override fun onSuccess(transaction: Transaction?) {
+            Log.e("onSuccess", "${transaction?.reference}")
+            saveScheduleDetails()
+            showPaymentSuccessOptions()
+            showPaymentResultDialog(true)
+        }
+
+        override fun beforeValidate(transaction: Transaction?) {}
+
+        override fun onError(error: Throwable?, transaction: Transaction?) {
+            confirmPaymentButton.text = "Retry"
+            showPaymentResultDialog(false)
+        }
+    }
+
+    private fun validateInputs(cardNumber: String?, cvv: String?, year: String?, month: String?): Boolean {
+        return (
+                cardNumber?.length!! > 0 &&
+                cvv?.length!! > 0 &&
+                year?.length!! > 0 &&
+                month?.length!! > 0
+                )
     }
 }
