@@ -30,7 +30,6 @@ class RegistrationFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!).get(AuthenticationViewModel::class.java)
         registerButton.setOnClickListener { _ -> goToMainScreen() }
         loginText.setOnClickListener { _ -> goToLogin() }
-        activity?.actionBar?.title = "REGISTER"
     }
 
     private fun goToLogin() {
@@ -55,14 +54,12 @@ class RegistrationFragment : Fragment() {
                 Intent(activity, MainActivity::class.java).apply { startActivity(this) }
             } else {
                 Snackbar.make(registrationParent, viewModel.errorMessage.toUpperCase(),
-                        Snackbar.LENGTH_LONG)
-                        .show()
+                        Snackbar.LENGTH_LONG).show()
             }
 
         } else {
             Snackbar.make(registrationParent, "All fields are required.".toUpperCase(),
-                    Snackbar.LENGTH_LONG)
-                    .show()
+                    Snackbar.LENGTH_LONG).show()
         }
     }
 

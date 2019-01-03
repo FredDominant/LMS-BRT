@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,6 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
         updateProfile.setOnClickListener { _ -> updateProfile() }
         val user = viewModel.getUser()
-        activity?.actionBar?.title = "PROFILE"
         user?.let {
             profileEmail.editText?.setText(it.email)
             profileFirstName.editText?.setText(it.firstName)
@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
                 val updateStatus = viewModel.updateProfile(this)
                 if (updateStatus) {
                     updateSharedPreference(this)
-                    displaySnackbar("Profile details updated")
+                    displaySnackbar("Profile updated")
                 } else displaySnackbar(viewModel.errorMessage)
             }
         } else { displaySnackbar("All Fields are Required") }
