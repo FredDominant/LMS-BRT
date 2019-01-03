@@ -19,7 +19,7 @@ data class BusSchedule (
 )
 {
     @Ignore
-    constructor(): this(1, 0, "", "", "", "", "", "", 0)
+    constructor(): this(null, 0, "", "", "", "", "", "", 0)
 
     @Ignore
     constructor(userId: Int,
@@ -30,5 +30,5 @@ data class BusSchedule (
                 date: String,
                 cost: String,
                 seatNumber: Int):
-            this(1, userId, busName, destination, from, status, date, cost, seatNumber)
+            this(null, userId, busName, destination, from, status, date, cost, seatNumber)
 }

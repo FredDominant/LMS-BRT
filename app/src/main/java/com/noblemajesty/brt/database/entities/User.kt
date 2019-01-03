@@ -15,11 +15,11 @@ data class User (
 )
 {
     @Ignore
-    constructor(): this(1, "", "", "", "")
+    constructor(): this(null, "", "", "", "")
 
     @Ignore
     constructor(firstName: String,
                 lastName: String,
                 email: String,
-                password: String): this(1, firstName, lastName, email, password)
+                password: String): this(null, firstName, lastName, email, password)
 }

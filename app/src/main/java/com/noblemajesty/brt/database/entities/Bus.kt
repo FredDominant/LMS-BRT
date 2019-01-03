@@ -13,7 +13,7 @@ data class Bus (
         var color: String
 ) {
     @Ignore
-    constructor(): this(0, 0, "", "")
+    constructor(): this(null, 0, "", "")
 
     @Ignore
     constructor(capacity: Int, name: String, color: String): this(null, capacity, name, color)

@@ -40,7 +40,7 @@ class AuthenticationViewModel(application: Application) : AndroidViewModel(appli
         val userId = BRTDatabase.getDatabaseInstance(getApplication()).userDAO().createUser(user)
 
         userId?.let { isRegisteredUser = true }
-        setUserInfoToViewModel(user)
+        setUserInfoToViewModel(user.apply { this.userId = userId?.toInt() })
         return isRegisteredUser
     }
 
