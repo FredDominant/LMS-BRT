@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "user")
 data class User (
         @PrimaryKey(autoGenerate = true)
-        var userId: Int? = 0,
+        var userId: Int?,
         var firstName: String = "",
         var lastName: String = "",
         var email: String = "",
@@ -15,8 +15,11 @@ data class User (
 )
 {
     @Ignore
-    constructor(): this(null, "", "", "", "")
+    constructor(): this(1, "", "", "", "")
 
     @Ignore
-    constructor(firstName: String, lastName: String, email: String, password: String): this(0, firstName, lastName, email, password)
+    constructor(firstName: String,
+                lastName: String,
+                email: String,
+                password: String): this(1, firstName, lastName, email, password)
 }

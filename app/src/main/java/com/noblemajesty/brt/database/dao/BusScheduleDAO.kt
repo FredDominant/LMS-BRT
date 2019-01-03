@@ -9,8 +9,8 @@ import com.noblemajesty.brt.database.entities.BusSchedule
 @Dao
 interface BusScheduleDAO {
 
-    @Query("SELECT * from busSchedule")
-    fun getSchedules(): List<BusSchedule>?
+    @Query("SELECT * from busSchedule WHERE userId = :userId")
+    fun getSchedules(userId: Int): List<BusSchedule>?
 
     @Insert
     fun addSchedule(busSchedule: BusSchedule): Long?

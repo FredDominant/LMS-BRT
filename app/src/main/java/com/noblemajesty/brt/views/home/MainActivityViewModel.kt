@@ -24,16 +24,25 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     var destination: String? = null
     var busName: String? = null
     var scheduleId: Long? = null
+    var errorMessage = ""
 
-    init {
-        database = BRTDatabase.getDatabaseInstance(getApplication())
-    }
+    init { database = BRTDatabase.getDatabaseInstance(getApplication()) }
 
-    fun getSchedules() = database?.busScheduleDAO()?.getSchedules()
+    fun getSchedules(userId: Int) = database?.busScheduleDAO()?.getSchedules(userId)
 
     fun getUser() = database?.userDAO()?.getCurrentUser(userId!!)
 
-    fun updateProfile(user: User) = database?.userDAO()?.updateUser(user)
+    fun updateProfile(user: User): Boolean {
+        var updateStatus = false
+        val findUserWithEmail = database?.userDAO()?.findUserByEmail(user.email)
+        findUserWithEmail?.let { foundUser ->
+            if (foundUser.userId == user.userId) {
+                database?.userDAO()?.updateUser(user)
+                updateStatus = true
+            } else { errorMessage = "Email is already taken" }
+        }
+        return updateStatus
+    }
 
     fun getAllBuses(): List<Bus>? {
         var buses = database?.busDAO()?.getAllBuses()

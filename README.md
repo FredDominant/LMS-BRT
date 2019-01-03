@@ -25,4 +25,5 @@
     2. Expiry Date => Any date in the future
     3. CVV => 001
 
+[You can check here for more details](https://developers.paystack.co/docs/test-cards)
 #### Contributions are welcome.

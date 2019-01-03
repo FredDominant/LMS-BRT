@@ -1,15 +1,18 @@
 package com.noblemajesty.brt.views.home
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 
 import com.noblemajesty.brt.R
+import com.noblemajesty.brt.Utils
 import com.noblemajesty.brt.adapters.BusScheduleAdapter
 import com.noblemajesty.brt.database.entities.BusSchedule
 import kotlinx.android.synthetic.main.recent_schedules_fragment.*
@@ -30,7 +33,11 @@ class RecentSchedulesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val schedules = viewModel.getSchedules()
+
+        val preferences = activity?.getSharedPreferences(Utils.PREFERENCE, Context.MODE_PRIVATE)
+        val userId = preferences?.getInt(Utils.userID, 0)
+        val schedules = viewModel.getSchedules(userId!!)
+
         schedules?.let {
             val adapter = BusScheduleAdapter(it as ArrayList<BusSchedule>)
             val layoutManager = LinearLayoutManager(activity!!, LinearLayout.VERTICAL, false)
