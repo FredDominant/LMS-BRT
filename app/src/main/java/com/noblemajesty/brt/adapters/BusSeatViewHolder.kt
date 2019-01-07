@@ -28,7 +28,6 @@ class BusSeatViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
             view.findViewById<CardView>(R.id.busSeatContainer).
                     setCardBackgroundColor(view.context.resources.getColor(R.color.colorPrimary, null))
             view.setOnClickListener {
-//                Snackbar.make(view.rootView, "Seat ${busSeat.number} selected", Snackbar.LENGTH_LONG).show()
                 displayDialog(busSeat.number!!)
             }
         }

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.noblemajesty.brt.R
+import com.noblemajesty.brt.database.BRTDatabase
 import com.noblemajesty.brt.views.home.MainActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -30,6 +31,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(activity!!).get(AuthenticationViewModel::class.java)
+        viewModel.database = BRTDatabase.getDatabaseInstance(activity!!)
         signupText.setOnClickListener { _ -> goToSignup() }
         loginButton.setOnClickListener { _ -> login() }
     }
