@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            handleBackPress()
         }
     }
 
@@ -78,6 +78,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .replace(R.id.frameContainer, fragment)
                 .addToBackStack(null)
                 .commit()
+    }
+
+    private fun handleBackPress() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.frameContainer)
+        when (currentFragment) {
+            is RecentSchedulesFragment -> { }
+            is ProfileFragment -> goToFragment(RecentSchedulesFragment.newInstance(), null)
+            is AddScheduleFragment -> goToFragment(RecentSchedulesFragment.newInstance(), null)
+            else -> super.onBackPressed()
+        }
     }
 
     private fun setDrawerInfo() {
