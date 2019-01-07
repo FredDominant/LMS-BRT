@@ -40,10 +40,10 @@ class RegistrationFragment : Fragment() {
 
     private fun goToMainScreen() {
         if (validateFields()) {
-            if (viewModel.signup(firstName.editText?.text!!.toString(),
-                            lastName.editText?.text!!.toString(),
-                            email.editText?.text!!.toString(),
-                            password.editText?.text!!.toString())) {
+            if (viewModel.signup(firstName.editText?.text!!.toString().trim(),
+                            lastName.editText?.text!!.toString().trim(),
+                            email.editText?.text!!.toString().trim(),
+                            password.editText?.text!!.toString().trim())) {
                 (activity!! as? RegistrationActivity)
                         ?.saveDetailsToSharedPreference(
                                 email = viewModel.email,
@@ -65,10 +65,10 @@ class RegistrationFragment : Fragment() {
 
     private fun validateFields(): Boolean {
         return (
-                email.editText?.text?.length!! > 0 &&
-                password.editText?.text?.length!! > 0 &&
-                firstName.editText?.text?.length!! > 0 &&
-                lastName.editText?.text?.length!! > 0
+                email.editText?.text?.trim()?.length!! > 0 &&
+                password.editText?.text?.trim()?.length!! > 0 &&
+                firstName.editText?.text?.trim()?.length!! > 0 &&
+                lastName.editText?.text?.trim()?.length!! > 0
                 )
     }
 

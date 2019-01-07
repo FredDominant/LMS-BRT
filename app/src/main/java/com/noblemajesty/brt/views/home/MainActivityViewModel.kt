@@ -2,8 +2,6 @@ package com.noblemajesty.brt.views.home
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.ViewModel
-import android.util.Log
 import com.noblemajesty.brt.BusSeat
 import com.noblemajesty.brt.database.BRTDatabase
 import com.noblemajesty.brt.database.entities.Bus

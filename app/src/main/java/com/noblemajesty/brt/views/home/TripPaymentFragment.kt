@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import co.paystack.android.Paystack
 import co.paystack.android.PaystackSdk
@@ -147,13 +148,13 @@ class TripPaymentFragment : Fragment() {
 
     private fun getCharge(card: Card) = Charge().apply {
         user?.let {
-            email = it.email
+            email = it.email.trim()
             this.card = card
             amount = cost.text.toString().toInt()
         }
     }
 
-    private fun showPaymentResultDialog(success: Boolean) {
+    private fun showPaymentResultDialog(success: Boolean, errorMessage: String?) {
         val inflater = LayoutInflater.from(activity)
         val dialogView = inflater.inflate(R.layout.partial_dialog, null)
         val dialogBuilder = AlertDialog.Builder(activity!!)
@@ -163,7 +164,7 @@ class TripPaymentFragment : Fragment() {
             setPositiveButton("Close") { dialog, _ -> dialog.cancel() }
         }
         val dialog = dialogBuilder.create()
-        if (success) simulateSuccess(dialogView) else simulateError(dialogView)
+        if (success) simulateSuccess(dialogView) else simulateError(dialogView, errorMessage)
         dialog.show()
     }
 
@@ -174,11 +175,12 @@ class TripPaymentFragment : Fragment() {
         view.findViewById<LinearLayout>(R.id.successContainer).visibility = View.VISIBLE
     }
 
-    private fun simulateError(view: View) {
+    private fun simulateError(view: View, errorMessage: String?) {
         view.findViewById<ConstraintLayout>(R.id.paymentMain).visibility = View.GONE
         view.findViewById<ConstraintLayout>(R.id.paymentResult).visibility = View.VISIBLE
         view.findViewById<LinearLayout>(R.id.errorContainer).visibility = View.VISIBLE
         view.findViewById<LinearLayout>(R.id.successContainer).visibility = View.GONE
+        view.findViewById<TextView>(R.id.paymentErrorText).text = errorMessage
     }
 
     private fun goToHomeFragment() {
@@ -216,14 +218,14 @@ class TripPaymentFragment : Fragment() {
             Log.e("onSuccess", "${transaction?.reference}")
             saveScheduleDetails()
             showPaymentSuccessOptions()
-            showPaymentResultDialog(true)
+            showPaymentResultDialog(true, null)
         }
 
         override fun beforeValidate(transaction: Transaction?) {}
 
         override fun onError(error: Throwable?, transaction: Transaction?) {
             confirmPaymentButton.text = "Retry"
-            showPaymentResultDialog(false)
+            showPaymentResultDialog(false, error?.message)
         }
     }
 

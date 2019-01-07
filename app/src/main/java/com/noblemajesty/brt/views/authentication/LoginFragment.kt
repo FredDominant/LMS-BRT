@@ -42,15 +42,15 @@ class LoginFragment : Fragment() {
 
     private fun validateFields(): Boolean {
         return (
-                loginEmail.editText?.text?.length!! > 0 &&
-                loginPassword.editText?.text?.length!! > 0
+                loginEmail.editText?.text?.trim()?.length!! > 0 &&
+                loginPassword.editText?.text?.trim()?.length!! > 0
                 )
     }
 
     private fun login() {
         if (validateFields()) {
-            if (viewModel.loginUser(loginEmail.editText?.text!!.toString(),
-                            loginPassword.editText?.text!!.toString())) {
+            if (viewModel.loginUser(loginEmail.editText?.text!!.toString().trim(),
+                            loginPassword.editText?.text!!.toString().trim())) {
                 (activity!! as? RegistrationActivity)
                         ?.saveDetailsToSharedPreference(
                                 email = viewModel.email,
