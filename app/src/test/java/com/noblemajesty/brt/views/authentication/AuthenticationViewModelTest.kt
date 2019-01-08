@@ -1,7 +1,5 @@
 package com.noblemajesty.brt.views.authentication
 
-import com.noblemajesty.brt.database.BRTDatabase
-import com.noblemajesty.brt.database.dao.UserDAO
 import com.noblemajesty.brt.database.entities.User
 import org.junit.Rule
 import org.junit.Test
@@ -57,18 +55,9 @@ class AuthenticationViewModelTest {
 
     @Test
     fun database_shouldWorkProperly() {
-        val database = mock(BRTDatabase::class.java)
         val viewModel = AuthenticationViewModel()
-        val mockUserDAO = mock(UserDAO::class.java)
-        val mockUser = User().apply {
-            firstName = "firstName"
-            lastName = "lastName"
-            email = "email"
-            userId = 0
-        }
         assertEquals(viewModel.loginUser("fakeEmail", "fakePassword"), false)
         assertEquals(viewModel.errorMessage, "Invalid Login details")
-
     }
 
     @Test
