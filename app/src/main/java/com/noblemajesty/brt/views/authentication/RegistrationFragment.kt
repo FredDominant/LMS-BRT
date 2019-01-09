@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.noblemajesty.brt.R
+import com.noblemajesty.brt.database.BRTDatabase
 import com.noblemajesty.brt.views.home.MainActivity
 import kotlinx.android.synthetic.main.registration_fragment.*
 
@@ -28,6 +29,7 @@ class RegistrationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(activity!!).get(AuthenticationViewModel::class.java)
+        viewModel.database = BRTDatabase.getDatabaseInstance(activity!!)
         registerButton.setOnClickListener { _ -> goToMainScreen() }
         loginText.setOnClickListener { _ -> goToLogin() }
     }
