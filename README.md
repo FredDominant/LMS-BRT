@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/Noblemajesty/LMS-BRT/tree/develop.svg?style=svg)](https://circleci.com/gh/Noblemajesty/LMS-BRT/tree/develop)
 # Bus Ticketing Application
 
 ### This project is an LMS Output for Andela developer progression. It is a mobile application(Android) built with the following tools:
