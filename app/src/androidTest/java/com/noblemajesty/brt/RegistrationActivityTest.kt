@@ -9,6 +9,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import org.junit.runner.RunWith
 import android.support.v4.app.Fragment
+import com.noblemajesty.brt.views.authentication.LoginFragment
 import com.noblemajesty.brt.views.authentication.RegistrationActivity
 import com.noblemajesty.brt.views.authentication.RegistrationFragment
 import junit.framework.Assert.assertNotNull
@@ -69,6 +70,7 @@ class RegistrationActivityTest {
 
     @Test
     fun loginFragment_shouldAllowValidLogin() {
+        goToFragment(LoginFragment.newInstance())
         onView(withId(R.id.loginEmailField))
                 .perform(typeText("email@email.com"), closeSoftKeyboard())
 
