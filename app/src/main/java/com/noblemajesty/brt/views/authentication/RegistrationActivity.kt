@@ -7,6 +7,9 @@ import android.os.Bundle
 import com.noblemajesty.brt.R
 import com.noblemajesty.brt.Utils
 import com.noblemajesty.brt.Utils.PREFERENCE
+import android.view.WindowManager
+import com.noblemajesty.brt.BuildConfig
+
 
 class RegistrationActivity : AppCompatActivity() {
 
@@ -14,6 +17,10 @@ class RegistrationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (BuildConfig.DEBUG) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                    or WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+        }
         setContentView(R.layout.registration_activity)
 
         viewModel = ViewModelProviders.of(this).get(AuthenticationViewModel::class.java)
