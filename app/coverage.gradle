@@ -1,0 +1,27 @@
+
+task jacocoTestReport(type: JacocoReport, dependsOn: 'createDebugCoverageReport') {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = [ '**/R.class',
+                       '**/R$*.class',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*',
+                       '**/*Test*.*',
+                       'android/**/*.*',
+                       '**/com/noblemajesty/brt/adapters',
+                       '**/com/noblemajesty/brt/database',
+                       '**/com/noblemajesty/brt/BusSeat.*',
+                       '**/com/noblemajesty/brt/Utils.*']
+    def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/kotlin"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+    ])
+}

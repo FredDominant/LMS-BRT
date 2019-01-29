@@ -6,6 +6,14 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'jacoco'
+
+apply from: rootProject.file('app/coverage.gradle')
+
+jacoco {
+    toolVersion = '0.8.0'
+}
+
 
 android {
     compileSdkVersion 28
