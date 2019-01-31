@@ -16,7 +16,7 @@ interface BusDAO {
     fun getAllBuses(): List<Bus>?
 
     @Insert
-    fun createBus(bus: Bus)
+    fun createBus(bus: Bus): Long?
 
     @Update
     fun updateBus(bus: Bus)

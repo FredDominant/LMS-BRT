@@ -41,10 +41,10 @@ class ProfileFragment : Fragment() {
 
     private fun validateField() : Boolean {
         return (
-                profileEmail.editText?.text?.length!! > 0 &&
-                profilePassword.editText?.text?.length!! > 0 &&
-                profileFirstName.editText?.text?.length!! > 0 &&
-                profileLastName.editText?.text?.length!! > 0
+                profileEmail.editText?.text?.trim()?.length!! > 0 &&
+                profilePassword.editText?.text?.trim()?.length!! > 0 &&
+                profileFirstName.editText?.text?.trim()?.length!! > 0 &&
+                profileLastName.editText?.text?.trim()?.length!! > 0
                 )
     }
 

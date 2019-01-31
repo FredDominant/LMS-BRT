@@ -6,6 +6,14 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'jacoco'
+
+apply from: rootProject.file('app/coverage.gradle')
+
+jacoco {
+    toolVersion = '0.8.0'
+}
+
 
 android {
     compileSdkVersion 28
@@ -20,9 +28,19 @@ android {
     }
     buildTypes {
         release {
+            testCoverageEnabled = true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            testCoverageEnabled = true
+        }
+        mock {
+            testCoverageEnabled = true
+        }
+    }
+    testOptions {
+        animationsDisabled = true
     }
 }
 
@@ -43,14 +61,24 @@ dependencies {
     // Tests
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    testImplementation 'org.mockito:mockito-core:2.19.0'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
 
     // Espresso support
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation ('com.android.support.test.espresso:espresso-contrib:2.2.2') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'design'
+    }
 
+    // Disable Animation
+    androidTestImplementation 'com.bartoszlipinski:disable-animations-rule:1.0.0'
+
+    // UI Automator
+    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-
 }

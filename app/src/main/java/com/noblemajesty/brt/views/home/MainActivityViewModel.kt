@@ -2,6 +2,7 @@ package com.noblemajesty.brt.views.home
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
+import com.noblemajesty.brt.BuildConfig
 import com.noblemajesty.brt.BusSeat
 import com.noblemajesty.brt.database.BRTDatabase
 import com.noblemajesty.brt.database.entities.Bus
@@ -74,6 +75,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
             busSeats.add(busSeat)
         }
+        if (BuildConfig.DEBUG) {
+            // for testing purposes
+            busSeats[0].isAvailable = true
+            busSeats[1].isAvailable = false
+        }
+
         return busSeats
     }
 

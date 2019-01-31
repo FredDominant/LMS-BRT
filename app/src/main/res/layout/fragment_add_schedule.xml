@@ -43,6 +43,7 @@
     app:layout_constraintVertical_bias="0.0">
 
     <android.support.design.widget.TextInputEditText
+      android:id="@+id/tripFromField"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
   </android.support.design.widget.TextInputLayout>
@@ -61,6 +62,7 @@
     app:layout_constraintVertical_bias="0.0">
 
     <android.support.design.widget.TextInputEditText
+      android:id="@+id/tripToField"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
   </android.support.design.widget.TextInputLayout>
