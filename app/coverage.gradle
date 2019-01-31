@@ -1,6 +1,7 @@
 
 task jacocoTestReport(type: JacocoReport, dependsOn: 'createDebugCoverageReport') {
-
+    description = 'Generate JaCoCo coverage reports with ignored files'
+    group = 'verification'
     reports {
         xml.enabled = true
         html.enabled = true

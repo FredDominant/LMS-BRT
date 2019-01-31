@@ -224,6 +224,7 @@ class TripPaymentFragment : Fragment() {
         override fun beforeValidate(transaction: Transaction?) {}
 
         override fun onError(error: Throwable?, transaction: Transaction?) {
+            Log.e("Card Payment Error", "${error?.message}")
             confirmPaymentButton.text = "Retry"
             showPaymentResultDialog(false, error?.message)
         }
